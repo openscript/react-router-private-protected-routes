@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './containers/App';
 import reportWebVitals from './reportWebVitals';
+import { SessionContextProvider } from './contexts/SessionContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <SessionContextProvider>
+      <App />
+    </SessionContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
