@@ -4,12 +4,15 @@ import './index.css';
 import App from './containers/App';
 import reportWebVitals from './reportWebVitals';
 import { SessionContextProvider } from './contexts/SessionContext';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SessionContextProvider>
-      <App />
-    </SessionContextProvider>
+    <BrowserRouter>
+      <SessionContextProvider>
+        <App />
+      </SessionContextProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
