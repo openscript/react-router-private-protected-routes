@@ -16,14 +16,14 @@ export default function App() {
   const defaultProtectedRouteProps: ProtectedRouteProps = {
     isAuthenticated: !!sessionContext.isAuthenticated,
     authenticationPath: '/login',
-    redirectPath: sessionContext.redirectPath || '',
+    redirectPath: sessionContext.redirectPath,
     setRedirectPath: setRedirectPath
   };
 
   return (
     <div>
       <Routes>
-        <ProtectedRoute {...defaultProtectedRouteProps} path='/' ><Homepage /></ProtectedRoute>
+        <Route path='/' ><Homepage /></Route>
         <ProtectedRoute {...defaultProtectedRouteProps} path='dashboard'><Dashboard /></ProtectedRoute>
         <ProtectedRoute {...defaultProtectedRouteProps} path='protected'><Protected /></ProtectedRoute>
         <ProtectedRoute {...defaultProtectedRouteProps} path='nested'>

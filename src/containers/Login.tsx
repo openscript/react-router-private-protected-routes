@@ -7,7 +7,7 @@ export default function Login() {
 
   const handleLogin = () => {
     setSession({...session, isAuthenticated: true});
-    navigate('/');
+    navigate(session.redirectPath);
   }
 
   return <button onClick={handleLogin}>Login</button>;

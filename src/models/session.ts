@@ -1,6 +1,8 @@
 export type Session = {
   isAuthenticated?: boolean;
-  redirectPath?: string;
+  redirectPath: string;
 }
 
-export const initialSession: Session = {};
+export const initialSession: Session = {
+  redirectPath: ''
+};
