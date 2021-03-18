@@ -17,8 +17,7 @@ export default function ProtectedRoute(props: ProtectedRouteProps) {
   }
 
   if (redirectPath !== currentLocation.pathname) {
-    const renderComponent = () => <Redirect to={{ pathname: redirectPath }} />;
-    return <Route {...props} component={renderComponent} render={undefined} />;
+    return <Redirect to={{ pathname: redirectPath }} />;
   } else {
     return <Route {...props} />;
   }
