@@ -1,4 +1,4 @@
-import { Redirect, Route, RouteProps, useLocation } from 'react-router';
+import { Navigate, Route, RouteProps, useLocation } from 'react-router';
 
 export type ProtectedRouteProps = {
   isAuthenticated: boolean;
@@ -17,8 +17,7 @@ export default function ProtectedRoute(props: ProtectedRouteProps) {
   }
 
   if (redirectPath !== currentLocation.pathname) {
-    const renderComponent = () => <Redirect to={{ pathname: redirectPath }} />;
-    return <Route {...props} component={renderComponent} render={undefined} />;
+    return <Navigate to={{ pathname: redirectPath }} />;
   } else {
     return <Route {...props} />;
   }

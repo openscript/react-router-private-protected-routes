@@ -1,6 +1,6 @@
 import ProtectedRoute, { ProtectedRouteProps } from "../components/ProtectedRoute";
 import { useSessionContext } from "../contexts/SessionContext";
-import { Route, Switch } from 'react-router';
+import { Route, Routes } from 'react-router';
 import Homepage from "./Homepage";
 import Dashboard from "./Dashboard";
 import Protected from "./Protected";
@@ -22,12 +22,16 @@ export default function App() {
 
   return (
     <div>
-      <Switch>
-        <ProtectedRoute {...defaultProtectedRouteProps} exact={true} path='/' component={Homepage} />
-        <ProtectedRoute {...defaultProtectedRouteProps} path='/dashboard' component={Dashboard} />
-        <ProtectedRoute {...defaultProtectedRouteProps} path='/protected' component={Protected} />
-        <Route path='/login' component={Login} />
-      </Switch>
+      <Routes>
+        <ProtectedRoute {...defaultProtectedRouteProps} path='/' ><Homepage /></ProtectedRoute>
+        <ProtectedRoute {...defaultProtectedRouteProps} path='dashboard'><Dashboard /></ProtectedRoute>
+        <ProtectedRoute {...defaultProtectedRouteProps} path='protected'><Protected /></ProtectedRoute>
+        <ProtectedRoute {...defaultProtectedRouteProps} path='nested'>
+          <Route path='one'><Protected /></Route>
+          <Route path='two'><Protected /></Route>
+        </ProtectedRoute>
+        <Route path='login'><Login /></Route>
+      </Routes>
     </div>
   );
 };
