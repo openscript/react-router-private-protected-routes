@@ -5,6 +5,7 @@ import Homepage from "./Homepage";
 import Dashboard from "./Dashboard";
 import Protected from "./Protected";
 import Login from "./Login";
+import Layout from "../layouts/Layout";
 
 export default function App() {
   const [sessionContext, updateSessionContext] = useSessionContext();
@@ -13,7 +14,11 @@ export default function App() {
     updateSessionContext({...sessionContext, redirectPath: path});
   }
 
-  const defaultProtectedRouteProps: ProtectedRouteProps = {
+  if(!sessionContext.redirectPath) {
+    setRedirectPath('dashboard');
+  }
+
+  const defaultProtectedRouteProps: Omit<ProtectedRouteProps, 'outlet'> = {
     isAuthenticated: !!sessionContext.isAuthenticated,
     authenticationPath: '/login',
     redirectPath: sessionContext.redirectPath,
@@ -23,14 +28,14 @@ export default function App() {
   return (
     <div>
       <Routes>
-        <Route path='/' ><Homepage /></Route>
-        <ProtectedRoute {...defaultProtectedRouteProps} path='dashboard'><Dashboard /></ProtectedRoute>
-        <ProtectedRoute {...defaultProtectedRouteProps} path='protected'><Protected /></ProtectedRoute>
-        <ProtectedRoute {...defaultProtectedRouteProps} path='nested'>
-          <Route path='one'><Protected /></Route>
-          <Route path='two'><Protected /></Route>
-        </ProtectedRoute>
-        <Route path='login'><Login /></Route>
+        <Route path='/' element={<Homepage />} />
+        <Route path='dashboard' element={<ProtectedRoute {...defaultProtectedRouteProps} outlet={<Dashboard />} />} />
+        <Route path='protected' element={<ProtectedRoute {...defaultProtectedRouteProps} outlet={<Protected />} />} />
+        <Route path='nested' element={<ProtectedRoute {...defaultProtectedRouteProps} outlet={<Layout />} />}>
+          <Route path='one' element={<Protected />} />
+          <Route path='two' element={<Protected />} />
+        </Route>
+        <Route path='login' element={<Login />} />
       </Routes>
     </div>
   );

@@ -1,4 +1,5 @@
 # React Router Private Protected Routes
 
-- See https://github.com/ReactTraining/react-router/blob/dev/docs/advanced-guides/migrating-5-to-6.md
-- Use `useNavigate` hook instead of `useHistory`
+Navigate to one of the routes like `/login` or `/protected` to see it in action.
+
+- https://reactrouter.com/docs/en/v6/upgrading/v5

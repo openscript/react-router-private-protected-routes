@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
-import { Navigate, Route, RouteProps, useLocation } from 'react-router';
+import { Navigate, useLocation } from 'react-router';
 
 export type ProtectedRouteProps = {
   isAuthenticated: boolean;
   authenticationPath: string;
   redirectPath: string;
   setRedirectPath: (path: string) => void;
-} & RouteProps;
+  outlet: JSX.Element;
+};
 
-export default function ProtectedRoute({isAuthenticated, authenticationPath, redirectPath, setRedirectPath, ...routeProps}: ProtectedRouteProps) {
+export default function ProtectedRoute({isAuthenticated, authenticationPath, redirectPath, setRedirectPath, outlet}: ProtectedRouteProps) {
   const currentLocation = useLocation();
 
   useEffect(() => {
@@ -18,7 +19,7 @@ export default function ProtectedRoute({isAuthenticated, authenticationPath, red
   }, [isAuthenticated, setRedirectPath, currentLocation]);
 
   if(isAuthenticated && redirectPath === currentLocation.pathname) {
-    return <Route {...routeProps} />;
+    return outlet;
   } else {
     return <Navigate to={{ pathname: isAuthenticated ? redirectPath : authenticationPath }} />;
   }
